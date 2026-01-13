@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tw-h-full">
     <v-navigation-drawer permanent>
       <v-list>
         <v-list-item
@@ -63,12 +63,12 @@
 import { ref, toRef } from "vue";
 import TMenuItem from "./menu-item.type";
 
-const props = defineProps<{ menu: TMenuItem[] }>();
+const props = defineProps<{ items: TMenuItem[] }>();
 
 const emit = defineEmits<{
   (e: "menu-click", payload: { to?: string; title?: string }): void;
 }>();
-const items = toRef(props, "menu");
+const items = toRef(props, "items");
 
 const isOpenIndex = ref<number | null>(null);
 
