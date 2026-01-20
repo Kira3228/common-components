@@ -1,11 +1,9 @@
 <template>
-  <div class="tw-flex-1">
+  <div class="tw-flex-1 tw-min-w-0 tw-w-full tw-flex tw-flex-col">
     <v-data-table
       :multi-sort="true"
-      item-class="tw-w-full"
       :headers="headers"
       :items="items"
-      calculate-widths
       :page.sync="page"
       :items-per-page="itemsPerPage"
       item-key="id"
@@ -13,7 +11,6 @@
       color="primary"
       :single-select="false"
       hide-default-footer
-      dense
       :sort-by.sync="sortByList"
       :sort-desc.sync="sortDescList"
       @click:row="handleRowClick"
@@ -21,7 +18,7 @@
       loading-text="Загрузка данных"
     >
       <template v-slot:top>
-        <slot name="select-preset"></slot>
+        <slot name="select-preset" />
       </template>
     </v-data-table>
     <slot name="modal"></slot>
@@ -30,16 +27,18 @@
 
 <script lang="ts" setup generic="H, I">
 import { ref } from "vue";
+import { Header } from "./header.type";
+import { UiSelect } from "../Select";
 interface IProps {
-  isLoading: boolean;
-  headers: H;
-  items: I;
-  itemsPerPage: number;
-  paginationLength: number;
-  totalVisible: number;
+  isLoading?: boolean;
+  headers?: Header[];
+  items?: I;
+  itemsPerPage?: number;
+  paginationLength?: number;
+  totalVisible?: number;
   sortByList?: any;
   sortDescList?: any;
-  page: number;
+  page?: number;
 }
 
 const props = defineProps<IProps>();
@@ -57,3 +56,13 @@ const handleRowClick = (data: any) => {
   emits(`click-row`, data);
 };
 </script>
+<style scoped>
+:deep(.no-wrap-table th),
+:deep(.no-wrap-table td) {
+  white-space: nowrap !important;
+}
+
+:deep(.v-data-table__wrapper) {
+  overflow-x: auto;
+}
+</style>

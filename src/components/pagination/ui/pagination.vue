@@ -3,34 +3,24 @@
     <v-pagination
       :total-visible="totalVisible"
       :length="length"
-      v-model="page"
+      :value="value"
       @input="handleChangePage"
     />
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
-
 interface IProps {
   length: number;
-  value: number  | undefined;
+  value?: number | undefined;
   totalVisible: number;
 }
 const props = defineProps<IProps>();
 
-const page = ref<number | undefined>(props.value);
-
 const emits = defineEmits<{
-  (e: `update-page`, newPage: number): void;
+  (e: `input`, newPage: number): void;
 }>();
 
 const handleChangePage = (newPage: number) => {
-  emits("update-page", newPage);
+  emits("input", newPage);
 };
-watch(
-  () => props.value,
-  (newValue) => {
-    page.value = newValue;
-  }
-);
 </script>
