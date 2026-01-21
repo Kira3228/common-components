@@ -29,20 +29,31 @@
 </template>
 
 <script lang="ts" setup>
+import { useDebounce } from "../../lib/debounce";
+
 interface IProps {
-  isSearch: boolean;
+  isSearch?: boolean;
   label: string;
   placeholder: string;
-  value: string | number;
-  isTextarea: boolean;
+  value?: string | number;
+  isTextarea?: boolean;
 }
 const props = withDefaults(defineProps<IProps>(), {
   isSearch: false,
   isTextarea: false,
 });
 
-const emit = defineEmits<{ (e: `input`): void }>();
-const handleInput = () => {
-  emit(`input`);
+const emit = defineEmits<{
+  (e: `input`, value: any): void;
+  (e: `debounce`, value: any): void;
+}>();
+
+const { debounce } = useDebounce();
+
+const handleInput = (newValue: string | number) => {
+  emit(`input`, newValue);
+  debounce(() => {
+    emit("debounce", newValue);
+  }, 500);
 };
 </script>

@@ -14,6 +14,7 @@
       deletable-chips
       @input="handleSelect"
       :value="value"
+      :clearable="clearable"
     >
       <template v-if="chips" v-slot:selection="{ item, index }">
         <slot name="selectedChip" :item="item" :index="index"></slot>
@@ -32,6 +33,8 @@
 </template>
 
 <script lang="ts" setup generic="T, H">
+import { useDebounce } from "../../lib/debounce";
+
 interface IProps {
   label?: string;
   items?: T[];
@@ -43,6 +46,7 @@ interface IProps {
   returnObject?: boolean;
   itemValue?: string;
   itemText?: string;
+  clearable?: boolean;
 }
 
 withDefaults(defineProps<IProps>(), {
@@ -51,11 +55,15 @@ withDefaults(defineProps<IProps>(), {
   returnObject: false,
 });
 const emits = defineEmits<{
-  (e: `debounce`, value: any): void;
+  (e: `debounce`, value: T): void;
   (e: `input`, value: any): void;
 }>();
+const { debounce } = useDebounce();
 
-const handleSelect = (newValue: T) => {
+const handleSelect = (newValue: any) => {
   emits("input", newValue);
+  debounce(() => {
+    emits(`debounce`, newValue);
+  }, 500);
 };
 </script>

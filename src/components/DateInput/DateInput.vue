@@ -1,9 +1,9 @@
 <template>
   <div class="tw-flex tw-items-center tw-gap-4">
     <v-menu
+      ref="menuRef"
       left
-      ref="menu1"
-      v-model="menu1"
+      v-model="isMenuOpen"
       :close-on-content-click="false"
       offset-y
       max-width="290px"
@@ -12,64 +12,76 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
-          v-model="dateFormatted"
-          label="Date"
+          :value="dateFormatted"
+          :label="label"
           persistent-hint
+          readonly
           prepend-inner-icon="mdi-calendar"
           v-bind="attrs"
-          @blur="date = parseDate(dateFormatted)"
           v-on="on"
-        ></v-text-field>
+        >
+          <template v-slot:append>
+            <v-icon v-if="dateFormatted" @click.stop="clearDate">
+              mdi-close
+            </v-icon>
+            <v-icon v-else style="opacity: 0; pointer-events: none">
+              mdi-close
+            </v-icon>
+          </template>
+        </v-text-field>
       </template>
       <v-date-picker
-        v-model="date"
+        v-model="internalDate"
         no-title
-        @input="menu1 = false"
+        @input="isMenuOpen = false"
       ></v-date-picker>
     </v-menu>
   </div>
 </template>
 
-<script>
-export default {
-  data: (vm) => ({
-    date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    dateFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    menu1: false,
-    menu2: false,
-  }),
+<script lang="ts" setup>
+import { useDebounce } from "../../lib/debounce";
+import { ref, computed } from "vue";
 
-  computed: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
-    },
+interface IProps {
+  value?: string | null;
+  label?: string;
+}
+
+const props = withDefaults(defineProps<IProps>(), {
+  value: null,
+});
+
+const emit = defineEmits<{
+  (e: "input", value: string | null): void;
+  (e: `debounce`, vallue: any): void;
+}>();
+
+const isMenuOpen = ref(false);
+
+const { debounce } = useDebounce();
+
+const internalDate = computed({
+  get: () => props.value || null,
+  set: (val: string | null) => {
+    emit("input", val);
+    debounce(() => {
+      emit(`debounce`, val);
+    });
   },
+});
 
-  watch: {
-    date(val) {
-      this.dateFormatted = this.formatDate(this.date);
-    },
-  },
+const formatDate = (dateStr: string | null): string | null => {
+  if (!dateStr) return null;
+  const parts = dateStr.split("-");
+  if (parts.length !== 3) return null;
+  const [year, month, day] = parts;
+  return `${month}/${day}/${year}`;
+};
 
-  methods: {
-    formatDate(date) {
-      if (!date) return null;
+const dateFormatted = computed(() => formatDate(internalDate.value));
 
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    },
-  },
+const clearDate = () => {
+  internalDate.value = null;
 };
 </script>

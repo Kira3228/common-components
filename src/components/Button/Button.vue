@@ -14,11 +14,11 @@
 </template>
 <script lang="ts" setup>
 interface ButtonProps {
-  isDisabled: boolean;
-  elevation: number;
-  color: string;
-  height: number | string;
-  outlined: boolean;
+  isDisabled?: boolean;
+  elevation?: number;
+  color?: string;
+  height?: number | string;
+  outlined?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
