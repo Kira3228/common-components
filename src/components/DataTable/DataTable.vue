@@ -16,6 +16,9 @@
       @click:row="handleRowClick"
       :loading="isLoading"
       loading-text="Загрузка данных"
+      :show-select="showSelect"
+      :value="value"
+      @input="handleInput"
     >
       <template v-slot:top>
         <slot name="select-preset" />
@@ -28,7 +31,6 @@
 <script lang="ts" setup generic="H, I">
 import { ref } from "vue";
 import { Header } from "./header.type";
-import { UiSelect } from "../Select";
 interface IProps {
   isLoading?: boolean;
   headers?: Header[];
@@ -39,6 +41,8 @@ interface IProps {
   sortByList?: any;
   sortDescList?: any;
   page?: number;
+  showSelect?: boolean;
+  value?: any;
 }
 
 const props = defineProps<IProps>();
@@ -46,6 +50,7 @@ const props = defineProps<IProps>();
 const emits = defineEmits<{
   (e: `update:page`, newPage: number): void;
   (e: `click-row`, data: any): void;
+  (e: `input`, data: I[]): void;
 }>();
 const page = ref(props.page);
 
@@ -54,6 +59,9 @@ const handleChangePage = (newPage: number) => {
 };
 const handleRowClick = (data: any) => {
   emits(`click-row`, data);
+};
+const handleInput = (data: any) => {
+  emits(`input`, data);
 };
 </script>
 <style scoped>
