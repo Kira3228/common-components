@@ -23,6 +23,19 @@
       <template v-slot:top>
         <slot name="select-preset" />
       </template>
+      <template
+        v-for="header in headers"
+        v-slot:[`item.${header.value}`]="{ item, value }"
+      >
+        <slot
+          :name="`item.${header.value}`"
+          :item="item"
+          :value="value"
+          :header="header"
+        >
+          {{ value }}
+        </slot>
+      </template>
     </v-data-table>
     <slot name="modal"></slot>
   </div>

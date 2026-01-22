@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-pagination
+      class="tw-bg-transparent"
       :total-visible="totalVisible"
       :length="length"
       :value="value"
@@ -24,3 +25,8 @@ const handleChangePage = (newPage: number) => {
   emits("input", newPage);
 };
 </script>
+<style scoped lang="scss">
+.v-pagination {
+  background-color: transparent;
+}
+</style>
