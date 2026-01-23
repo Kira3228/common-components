@@ -68,11 +68,11 @@ const props = defineProps<{ items: TMenuItem[] }>();
 const emit = defineEmits<{
   (e: "menu-click", payload: { to?: string; title?: string }): void;
 }>();
-const items = toRef(props, "items");
+// const items = toRef(props, "items");
 
 const isOpenIndex = ref<number | null>(null);
 
-const menus = ref<boolean[]>(items.value.map(() => false));
+const menus = ref<boolean[]>(props.items.map(() => false));
 
 const openOnly = (idx: number) => {
   menus.value = menus.value.map((_, i) => i === idx);

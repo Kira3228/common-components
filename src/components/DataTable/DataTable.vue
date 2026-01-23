@@ -65,7 +65,6 @@ const emits = defineEmits<{
   (e: `click-row`, data: any): void;
   (e: `input`, data: I[]): void;
 }>();
-const page = ref(props.page);
 
 const handleChangePage = (newPage: number) => {
   emits("update:page", newPage);
