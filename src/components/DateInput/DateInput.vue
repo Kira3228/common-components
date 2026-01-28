@@ -76,7 +76,7 @@ const formatDate = (dateStr: string | null): string | null => {
   const parts = dateStr.split("-");
   if (parts.length !== 3) return null;
   const [year, month, day] = parts;
-  return `${month}/${day}/${year}`;
+  return `${day}/${month}/${year}`;
 };
 
 const dateFormatted = computed(() => formatDate(internalDate.value));

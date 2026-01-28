@@ -27,8 +27,20 @@
                 @click="handleMenuClick(item.to, item.title)"
               >
                 <v-list-item-content>
-                  <div class="tw-flex tw-gap-2">
-                    <span class="material-icons"> {{ item.icon }} </span>
+                  <div class="tw-flex tw-gap-2 tw-items-center">
+                    <template v-if="item.icon">
+                      <!-- Если это компонент -->
+                      <component
+                        v-if="item.icon && typeof item.icon === 'object'"
+                        :is="item.icon"
+                        class="tw-w-6 tw-h-6"
+                        v-bind="item.iconProps"
+                      />
+                      <!-- Если это строка (Material Icon) -->
+                      <span v-else class="material-icons">
+                        {{ item.icon }}
+                      </span>
+                    </template>
                     <v-list-item-title dense>{{
                       item.title
                     }}</v-list-item-title>
@@ -46,8 +58,16 @@
                 link
                 :to="sub.to"
               >
-                <div class="tw-flex tw-gap-2">
-                  <span class="material-icons"> {{ sub.icon }} </span>
+                <div class="tw-flex tw-gap-2 tw-items-center">
+                  <template v-if="sub.icon">
+                    <component
+                      v-if="typeof sub.icon === 'object'"
+                      :is="sub.icon"
+                      class="tw-w-6 tw-h-6"
+                      v-bind="sub.iconProps"
+                    />
+                    <span v-else class="material-icons"> {{ sub.icon }} </span>
+                  </template>
                   <v-list-item-title>{{ sub.title }}</v-list-item-title>
                 </div>
               </v-list-item>
@@ -60,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRef } from "vue";
+import { ref } from "vue";
 import TMenuItem from "./menu-item.type";
 
 const props = defineProps<{ items: TMenuItem[] }>();
@@ -68,7 +88,6 @@ const props = defineProps<{ items: TMenuItem[] }>();
 const emit = defineEmits<{
   (e: "menu-click", payload: { to?: string; title?: string }): void;
 }>();
-// const items = toRef(props, "items");
 
 const isOpenIndex = ref<number | null>(null);
 

@@ -1,16 +1,18 @@
 <template>
-  <v-btn
-    @click="$emit('click', $event)"
-    :disabled="isDisabled"
-    :elevation="elevation"
-    :color="color"
-    :height="height"
-    :outlined="outlined"
-  >
-    <template #default>
-      <slot />
-    </template>
-  </v-btn>
+  <div>
+    <v-btn
+      @click="$emit('click', $event)"
+      :disabled="isDisabled"
+      :elevation="elevation"
+      :color="color"
+      :height="height"
+      :outlined="outlined"
+    >
+      <template #default>
+        <slot />
+      </template>
+    </v-btn>
+  </div>
 </template>
 <script lang="ts" setup>
 interface ButtonProps {

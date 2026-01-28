@@ -16,7 +16,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn text @click="close"> Закрыть </v-btn>
-          <v-btn color="blue" text @click="close"> Скачать </v-btn>
+          <v-btn color="blue" text @click="onDownloadClick"> Скачать </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -31,12 +31,15 @@ const props = defineProps<DialogProps>();
 
 const emit = defineEmits<{
   (e: "input", val: boolean): void;
+  (e: `download`): void;
 }>();
 
-const updateVisibility = (val: boolean) => {
-  emit("input", val);
-};
+
 const close = () => {
   emit("input", false);
+};
+
+const onDownloadClick = () => {
+  emit(`download`);
 };
 </script>
