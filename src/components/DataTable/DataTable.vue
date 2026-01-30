@@ -19,6 +19,7 @@
       :show-select="showSelect"
       :value="value"
       @input="handleInput"
+      :dense="dense"
     >
       <template v-slot:top>
         <slot name="select-preset" />
@@ -35,6 +36,9 @@
         >
           {{ value }}
         </slot>
+      </template>
+      <template #footer>
+        <slot name="footer" />
       </template>
     </v-data-table>
     <slot name="modal"></slot>
@@ -56,6 +60,7 @@ interface IProps {
   page?: number;
   showSelect?: boolean;
   value?: any;
+  dense?: boolean;
 }
 
 const props = defineProps<IProps>();
