@@ -1,4 +1,4 @@
 export type Option = {
   text: string
-  to?: string
+  to?: { name: string }
 }
