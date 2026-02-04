@@ -46,7 +46,6 @@
 </template>
 
 <script lang="ts" setup generic="H, I">
-import { ref } from "vue";
 import { Header } from "./header.type";
 interface IProps {
   isLoading?: boolean;
