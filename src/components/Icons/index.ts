@@ -7,7 +7,21 @@ import SettingsIcon from "./SettingsIcon.vue";
 import MoreIcon from "./MoreIcon.vue";
 import ArrowUpIcon from "./ArrowUpIcon.vue";
 import ArrowDownIcon from "./ArrowDownIcon.vue";
+import SaveIcon from "./SaveIcon.vue";
+import CloseIcon from "./CloseIcon.vue";
+import UpdateIcon from "./UpdateIcon.vue";
 
-
-
-export { ListIcon, ArchiveIcon, FilesIcon, DetailsIcon, ControlIcon, SettingsIcon, MoreIcon, ArrowDownIcon, ArrowUpIcon }
+export {
+  ListIcon,
+  ArchiveIcon,
+  FilesIcon,
+  DetailsIcon,
+  ControlIcon,
+  SettingsIcon,
+  MoreIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  SaveIcon,
+  CloseIcon,
+  UpdateIcon
+}

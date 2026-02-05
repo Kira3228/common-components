@@ -9,6 +9,8 @@
       :height="height"
       :outlined="outlined"
       :icon="icon"
+      :text="text"
+      :plain="plain"
       v-bind="$attrs"
       v-on="otherListeners"
     >
@@ -29,6 +31,8 @@ interface ButtonProps {
   outlined?: boolean;
   icon?: boolean;
   xSmall?: boolean;
+  plain?: boolean;
+  text?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {

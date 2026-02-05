@@ -16,10 +16,7 @@
           <slot name="content" />
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="close"> {{ closeBtnTitle }} </v-btn>
-          <v-btn color="blue" text @click="mainButtonClick">
-            {{ mainBtnTitle }}
-          </v-btn>
+          <slot name="actions" />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -36,7 +33,7 @@ const props = defineProps<DialogProps>();
 
 const emit = defineEmits<{
   (e: "input", val: boolean): void;
-  (e: `download`): void;
+  (e: `main-click`): void;
 }>();
 
 const close = () => {
@@ -44,6 +41,6 @@ const close = () => {
 };
 
 const mainButtonClick = () => {
-  emit(`download`);
+  emit(`main-click`);
 };
 </script>
