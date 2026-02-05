@@ -11,7 +11,6 @@
       <v-list-item
         v-for="item in items"
         :key="item.text"
-        :to="item.to"
         link
         @click="handleClick(item)"
       >
