@@ -1,31 +1,19 @@
 <template>
-  <div class="tw-flex tw-items-center">
-    <v-textarea
-      v-if="isTextarea"
-      :value="value"
-      filled
-      auto-grow
-      :label="label"
-      @input="handleInput"
-    >
-    </v-textarea>
-    <v-text-field
-      v-else
-      dense
-      :label="label"
-      :placeholder="placeholder"
-      :value="value"
-      hide-details="auto"
-      color="primary"
-      @input="handleInput"
-    >
-      <template v-if="isSearch" v-slot:append>
-        <v-btn icon dark color="primary" @click.stop="">
-          <span class="material-icons"> search </span>
-        </v-btn>
-      </template>
-    </v-text-field>
-  </div>
+  <v-text-field
+    dense
+    :label="label"
+    :placeholder="placeholder"
+    :value="value"
+    hide-details="auto"
+    color="primary"
+    @input="handleInput"
+  >
+    <template v-if="isSearch" v-slot:append>
+      <v-btn icon dark color="primary" @click.stop="">
+        <span class="material-icons"> search </span>
+      </v-btn>
+    </template>
+  </v-text-field>
 </template>
 
 <script lang="ts" setup>
@@ -33,8 +21,8 @@ import { useDebounce } from "../../lib/debounce";
 
 interface IProps {
   isSearch?: boolean;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   value?: string | number;
   isTextarea?: boolean;
 }
