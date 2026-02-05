@@ -6,7 +6,7 @@
       :items="items"
       :page.sync="page"
       :items-per-page="itemsPerPage"
-      item-key="id"
+      :item-key="key"
       class="elevation-1 tw-text-xs"
       color="primary"
       :single-select="false"
@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts" setup generic="H, I">
+import { ref } from "vue";
 import { Header } from "./header.type";
 interface IProps {
   isLoading?: boolean;
@@ -60,9 +61,11 @@ interface IProps {
   showSelect?: boolean;
   value?: any;
   dense?: boolean;
+  itemKey?: string;
 }
 
 const props = defineProps<IProps>();
+const key = ref(props.itemKey || "id");
 
 const emits = defineEmits<{
   (e: `update:page`, newPage: number): void;

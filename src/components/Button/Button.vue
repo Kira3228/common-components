@@ -2,15 +2,15 @@
   <div>
     <v-btn
       :x-small="xSmall"
-      @click="$emit('click', $event)"
       :disabled="isDisabled"
       :elevation="elevation"
+      @click="handleClick"
       :color="color"
       :height="height"
       :outlined="outlined"
       :icon="icon"
       v-bind="$attrs"
-      v-on="$listeners"
+      v-on="otherListeners"
     >
       <template #default>
         <slot />
@@ -19,6 +19,8 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { computed, useListeners } from "vue";
+
 interface ButtonProps {
   isDisabled?: boolean;
   elevation?: number;
@@ -32,5 +34,19 @@ interface ButtonProps {
 const props = withDefaults(defineProps<ButtonProps>(), {
   height: `auto`,
   color: `blue`,
+});
+
+const emit = defineEmits<{
+  (e: `click`, event: Event): void;
+}>();
+
+const handleClick = (event: Event) => {
+  emit("click", event);
+};
+
+const listeners = useListeners();
+const otherListeners = computed(() => {
+  const { click, ...rest } = listeners;
+  return rest;
 });
 </script>
