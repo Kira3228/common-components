@@ -2,7 +2,7 @@
   <div>
     <v-btn
       :x-small="xSmall"
-      :disabled="isDisabled"
+      :disabled="disabled"
       :elevation="elevation"
       @click="handleClick"
       :color="color"
@@ -24,7 +24,7 @@
 import { computed, useListeners } from "vue";
 
 interface ButtonProps {
-  isDisabled?: boolean;
+  disabled?: boolean;
   elevation?: number;
   color?: string;
   height?: number | string;

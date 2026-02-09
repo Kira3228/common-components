@@ -2,11 +2,12 @@
   <v-text-field
     dense
     :label="label"
+    @input="handleInput"
     :placeholder="placeholder"
     :value="value"
     hide-details="auto"
     color="primary"
-    @input="handleInput"
+    :rules="rules"
   >
     <template v-if="isSearch" v-slot:append>
       <v-btn icon dark color="primary" @click.stop="">
@@ -25,6 +26,7 @@ interface IProps {
   placeholder?: string;
   value?: string | number;
   isTextarea?: boolean;
+  rules?: any[];
 }
 const props = withDefaults(defineProps<IProps>(), {
   isSearch: false,
