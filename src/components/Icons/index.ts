@@ -10,6 +10,7 @@ import ArrowDownIcon from "./ArrowDownIcon.vue";
 import SaveIcon from "./SaveIcon.vue";
 import CloseIcon from "./CloseIcon.vue";
 import UpdateIcon from "./UpdateIcon.vue";
+import DeleteIcon from "./DeleteIcon.vue";
 
 export {
   ListIcon,
@@ -23,5 +24,6 @@ export {
   ArrowUpIcon,
   SaveIcon,
   CloseIcon,
-  UpdateIcon
+  UpdateIcon,
+  DeleteIcon
 }
