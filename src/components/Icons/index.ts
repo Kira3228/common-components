@@ -11,6 +11,8 @@ import SaveIcon from "./SaveIcon.vue";
 import CloseIcon from "./CloseIcon.vue";
 import UpdateIcon from "./UpdateIcon.vue";
 import DeleteIcon from "./DeleteIcon.vue";
+import FilterIcon from "./FilterIcon.vue";
+
 
 export {
   ListIcon,
@@ -25,5 +27,6 @@ export {
   SaveIcon,
   CloseIcon,
   UpdateIcon,
-  DeleteIcon
+  DeleteIcon,
+  FilterIcon
 }
