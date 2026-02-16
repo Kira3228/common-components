@@ -17,9 +17,9 @@
   </svg>
 </template>
 <script lang="ts" setup>
-interface IconProps {
-  color?: string;
-}
 
+export interface IconProps {
+  color?: string
+}
 const props = defineProps<IconProps>();
 </script>
