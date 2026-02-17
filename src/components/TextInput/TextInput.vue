@@ -8,6 +8,7 @@
     hide-details="auto"
     color="primary"
     :rules="rules"
+    @keypress="allowOnlyNumbers"
   >
     <template v-if="isSearch" v-slot:append>
       <v-btn icon dark color="primary" @click.stop="">
@@ -27,6 +28,7 @@ interface IProps {
   value?: string | number;
   isTextarea?: boolean;
   rules?: any[];
+  onlyNumbers?: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {
   isSearch: false,
@@ -36,6 +38,7 @@ const props = withDefaults(defineProps<IProps>(), {
 const emit = defineEmits<{
   (e: `input`, value: any): void;
   (e: `debounce`, value: any): void;
+  (e: `keypress`, value: any): void;
 }>();
 
 const { debounce } = useDebounce();
@@ -45,5 +48,11 @@ const handleInput = (newValue: string | number) => {
   debounce(() => {
     emit("debounce", newValue);
   }, 500);
+};
+
+const allowOnlyNumbers = (evt: KeyboardEvent) => {
+  if (props.onlyNumbers && !/\d/.test(evt.key)) {
+    evt.preventDefault();
+  }
 };
 </script>
