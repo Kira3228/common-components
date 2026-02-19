@@ -19,6 +19,7 @@
           prepend-inner-icon="mdi-calendar"
           v-bind="attrs"
           v-on="on"
+          @blur="handleBlur"
         >
           <template v-slot:append>
             <v-icon v-if="dateFormatted" @click.stop="clearDate">
@@ -55,6 +56,7 @@ const props = withDefaults(defineProps<IProps>(), {
 const emit = defineEmits<{
   (e: "input", value: string | null): void;
   (e: `debounce`, vallue: any): void;
+  (e: `blur`): void;
 }>();
 
 const isMenuOpen = ref(false);
@@ -70,6 +72,10 @@ const internalDate = computed({
     });
   },
 });
+
+const handleBlur = () => {
+  emit(`blur`);
+};
 
 const formatDate = (dateStr: string | null): string | null => {
   if (!dateStr) return null;
