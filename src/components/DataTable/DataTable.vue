@@ -1,6 +1,7 @@
 <template>
   <div class="tw-flex-1 tw-min-w-0 tw-w-full tw-flex tw-flex-col">
     <v-data-table
+      v-if="!isLoading"
       :multi-sort="true"
       :headers="headers"
       :items="items"
@@ -22,13 +23,7 @@
       :dense="dense"
     >
       <template #top>
-        <v-skeleton-loader
-          v-if="isLoading"
-          type="table-thead"
-          class="mb-4"
-          height="48"
-        />
-        <slot name="select-preset" v-else />
+        <slot name="select-preset" />
       </template>
       <template
         v-for="header in headers"
@@ -47,6 +42,10 @@
         <slot name="footer" />
       </template>
     </v-data-table>
+    <div v-else>
+      <v-skeleton-loader type="table-thead" class="table-skeleton" />
+      <v-skeleton-loader type="table-tbody" class="table-skeleton" />
+    </div>
     <slot name="modal"></slot>
   </div>
 </template>
