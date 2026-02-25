@@ -21,8 +21,14 @@
       @input="handleInput"
       :dense="dense"
     >
-      <template v-slot:top>
-        <slot name="select-preset" />
+      <template #top>
+        <v-skeleton-loader
+          v-if="isLoading"
+          type="table-thead"
+          class="mb-4"
+          height="48"
+        />
+        <slot name="select-preset" v-else />
       </template>
       <template
         v-for="header in headers"
