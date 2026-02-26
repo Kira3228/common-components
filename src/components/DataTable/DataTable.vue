@@ -12,8 +12,6 @@
       color="primary"
       :single-select="false"
       hide-default-footer
-      :sort-by.sync="sortByList"
-      :sort-desc.sync="sortDescList"
       @click:row="handleRowClick"
       :loading="isLoading"
       loading-text="Загрузка данных"
@@ -21,6 +19,8 @@
       :value="value"
       @input="handleInput"
       :dense="dense"
+      :sort-by.sync="localSortBy"
+      :sort-desc.sync="localSortDesc"
     >
       <template #top>
         <slot name="select-preset" />
@@ -49,10 +49,10 @@
     <slot name="modal"></slot>
   </div>
 </template>
-
 <script lang="ts" setup generic="H, I">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Header } from "./header.type";
+
 interface IProps {
   isLoading?: boolean;
   headers?: Header[];
@@ -67,6 +67,8 @@ interface IProps {
   value?: any;
   dense?: boolean;
   itemKey?: string;
+  sortBy?: any;
+  sortDesc?: any;
 }
 
 const props = defineProps<IProps>();
@@ -75,18 +77,43 @@ const key = ref(props.itemKey || "id");
 const emits = defineEmits<{
   (e: `update:page`, newPage: number): void;
   (e: `click-row`, data: any): void;
-  (e: `input`, data: I[]): void;
+  (e: `input`, data: H[]): void;
+  (e: `change`, data: any): void;
+  (e: `update:sortBy`, value: any): void;
+  (e: `update:sortDesc`, value: any): void;
 }>();
 
-const handleChangePage = (newPage: number) => {
-  emits("update:page", newPage);
-};
-const handleRowClick = (data: any) => {
-  emits(`click-row`, data);
-};
-const handleInput = (data: any) => {
-  emits(`input`, data);
-};
+const localSortBy = ref(props.sortBy);
+const localSortDesc = ref(props.sortDesc);
+
+watch(
+  () => props.sortBy,
+  (val) => {
+    localSortBy.value = val;
+  },
+);
+watch(
+  () => props.sortDesc,
+  (val) => {
+    localSortDesc.value = val;
+  },
+);
+
+watch(
+  [localSortBy, localSortDesc],
+  () => {
+    emits("update:sortBy", localSortBy.value);
+    emits("update:sortDesc", localSortDesc.value);
+    emits("change", {
+      sortBy: localSortBy.value,
+      sortDesc: localSortDesc.value,
+    });
+  },
+  { deep: true },
+);
+
+const handleRowClick = (data: any) => emits("click-row", data);
+const handleInput = (data: any) => emits("input", data);
 </script>
 <style scoped>
 :deep(.no-wrap-table th),
