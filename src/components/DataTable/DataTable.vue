@@ -7,7 +7,7 @@
       :page.sync="page"
       :items-per-page="itemsPerPage"
       :item-key="key"
-      class="elevation-1 tw-text-xs"
+      class="tw-text-xs custom-table"
       color="primary"
       :single-select="false"
       hide-default-footer
@@ -20,6 +20,8 @@
       :value="value"
       @input="handleInput"
       :dense="dense"
+      :height="height"
+      :fixed-header="fixedHeader"
     >
       <template v-slot:top>
         <slot name="select-preset" />
@@ -62,6 +64,8 @@ interface IProps {
   value?: any;
   dense?: boolean;
   itemKey?: string;
+  height?: string;
+  fixedHeader?: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -84,12 +88,12 @@ const handleInput = (data: any) => {
 };
 </script>
 <style scoped>
-:deep(.no-wrap-table th),
-:deep(.no-wrap-table td) {
-  white-space: nowrap !important;
+.custom-table ::v-deep .v-data-table__wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
-:deep(.v-data-table__wrapper) {
-  overflow-x: auto;
+.custom-table ::v-deep table {
+  min-width: 1200px;
 }
 </style>
