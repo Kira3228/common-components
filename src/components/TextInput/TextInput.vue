@@ -1,5 +1,6 @@
 <template>
   <v-text-field
+    :outlined="outlined"
     dense
     :label="label"
     :placeholder="placeholder"
@@ -25,6 +26,7 @@ interface IProps {
   placeholder?: string;
   value?: string | number;
   isTextarea?: boolean;
+  outlined?: boolean;
 }
 const props = withDefaults(defineProps<IProps>(), {
   isSearch: false,

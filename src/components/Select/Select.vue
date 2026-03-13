@@ -8,6 +8,7 @@
     :item-value="itemValue"
     :return-object="returnObject"
     dense
+    :outlined="outlined"
     color="primary"
     :multiple="multiple"
     deletable-chips
@@ -45,6 +46,7 @@ interface IProps {
   itemValue?: string;
   itemText?: string;
   clearable?: boolean;
+  outlined?: boolean;
 }
 
 withDefaults(defineProps<IProps>(), {
