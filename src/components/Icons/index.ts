@@ -9,5 +9,6 @@ import ArrowUpIcon from "./ArrowUpIcon.vue";
 import ArrowDownIcon from "./ArrowDownIcon.vue";
 import FiltersIcon from "./FiltersIcon.vue";
 import RefrehsIcon from "./RefrehsIcon.vue";
+import SearchIcon from "./SearchIcon.vue";
 
-export { ListIcon, ArchiveIcon, FilesIcon, DetailsIcon, ControlIcon, SettingsIcon, MoreIcon, ArrowDownIcon, ArrowUpIcon, FiltersIcon, RefrehsIcon }
+export { ListIcon, ArchiveIcon, FilesIcon, DetailsIcon, ControlIcon, SettingsIcon, MoreIcon, ArrowDownIcon, ArrowUpIcon, FiltersIcon, RefrehsIcon, SearchIcon }
