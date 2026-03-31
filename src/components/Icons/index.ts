@@ -10,5 +10,6 @@ import ArrowDownIcon from "./ArrowDownIcon.vue";
 import FiltersIcon from "./FiltersIcon.vue";
 import RefrehsIcon from "./RefrehsIcon.vue";
 import SearchIcon from "./SearchIcon.vue";
+import ReportIcon from "./ReportIcon.vue";
 
-export { ListIcon, ArchiveIcon, FilesIcon, DetailsIcon, ControlIcon, SettingsIcon, MoreIcon, ArrowDownIcon, ArrowUpIcon, FiltersIcon, RefrehsIcon, SearchIcon }
+export { ListIcon, ArchiveIcon, FilesIcon, DetailsIcon, ControlIcon, SettingsIcon, MoreIcon, ArrowDownIcon, ArrowUpIcon, FiltersIcon, RefrehsIcon, SearchIcon, ReportIcon }

@@ -8,12 +8,9 @@
     hide-details="auto"
     color="primary"
     @input="handleInput"
+    @keyup.enter="test"
   >
-    <template v-if="isSearch" v-slot:append>
-      <v-btn icon dark color="primary" @click.stop="">
-        <span class="material-icons"> search </span>
-      </v-btn>
-    </template>
+    <template #append> <slot name="append" /> </template>
   </v-text-field>
 </template>
 
@@ -36,9 +33,14 @@ const props = withDefaults(defineProps<IProps>(), {
 const emit = defineEmits<{
   (e: `input`, value: any): void;
   (e: `debounce`, value: any): void;
+  (e: `keyup`): void;
 }>();
 
 const { debounce } = useDebounce();
+
+const test = () => {
+  emit(`keyup`);
+};
 
 const handleInput = (newValue: string | number) => {
   emit(`input`, newValue);

@@ -26,6 +26,7 @@ interface ButtonProps {
   elevation?: number;
   color?: string;
   height?: number | string;
+  width?: number | string;
   outlined?: boolean;
   icon?: boolean;
   xSmall?: boolean;
