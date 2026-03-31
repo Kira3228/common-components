@@ -9,6 +9,8 @@
     color="primary"
     @input="handleInput"
     @keyup.enter="test"
+    :clearable="clearable"
+    @click:clear="handleClear"
   >
     <template #append> <slot name="append" /> </template>
   </v-text-field>
@@ -24,6 +26,7 @@ interface IProps {
   value?: string | number;
   isTextarea?: boolean;
   outlined?: boolean;
+  clearable?: boolean;
 }
 const props = withDefaults(defineProps<IProps>(), {
   isSearch: false,
@@ -34,6 +37,7 @@ const emit = defineEmits<{
   (e: `input`, value: any): void;
   (e: `debounce`, value: any): void;
   (e: `keyup`): void;
+  (e: `click:clear`, value: any): void;
 }>();
 
 const { debounce } = useDebounce();
@@ -47,5 +51,10 @@ const handleInput = (newValue: string | number) => {
   debounce(() => {
     emit("debounce", newValue);
   }, 500);
+};
+
+const handleClear = () => {
+  emit("input", "");
+  emit(`click:clear`, "");
 };
 </script>
